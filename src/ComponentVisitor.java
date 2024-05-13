@@ -12,7 +12,7 @@ public class ComponentVisitor implements IVisitor{
     public void visit(GPU gpu){
         System.out.println("Id: " + gpu.getId() + " , type: " + gpu.getType() +
                 " , manufacturer: " + gpu.getType()+ " , name: " + gpu.getName()
-                +" , Socket: " + gpu.getPort() + " , Clock: " + gpu.getCLock());
+                +" , Port: " + gpu.getPort() + " , Clock: " + gpu.getCLock());
 
 
     }
