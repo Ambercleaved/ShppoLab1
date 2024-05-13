@@ -20,7 +20,7 @@ public class ComponentVisitor implements IVisitor{
     public void visit(Motherboard mb){
         System.out.println("Id: " + mb.getId() + " , type: " + mb.getType() +
                 " , manufacturer: " + mb.getType()+ " , name: " + mb.getName()
-                +" , Socket: " + mb.getPort() + " , Clock: " + mb.getSocket() + "\n");
+                +" , Port: " + mb.getPort() + " , Socket: " + mb.getSocket() + "\n");
 
 
     }
