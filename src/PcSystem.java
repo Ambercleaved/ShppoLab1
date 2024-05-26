@@ -24,5 +24,6 @@ public class PcSystem {
         visitor.visit(cpu);
         visitor.visit(gpu);
         visitor.visit(motherboard);
+        System.out.println();
     }
 }
