@@ -1,11 +1,22 @@
 public class Factory {
-    public static CPU createCPU(int id,String type , String manufacturer, String name, int amountCores, String socket, double clock){
-        return new CPU(id, type, manufacturer, name, amountCores, socket, clock);
+    private static int nextId = 1;
+
+    public static int getNextId() {
+        return nextId++;
     }
-    public static GPU createGPU(int id,String type , String manufacturer, String name, String port, double clock){
-        return new GPU(id, type, manufacturer, name, port, clock);
+
+
+
+    public static CPU createCPU(String manufacturer, String name, int amountCores, String socket, double clock){
+        int id = getNextId();
+        return new CPU(id, "cpu", manufacturer, name, amountCores, socket, clock);
     }
-    public static Motherboard createMotherboard(int id,String type , String manufacturer, String name, String port, String socket){
-        return new Motherboard(id, type, manufacturer, name, port, socket);
+    public static GPU createGPU(String manufacturer, String name, String port, double clock){
+        int id = getNextId();
+        return new GPU(id, "gpu", manufacturer, name, port, clock);
+    }
+    public static Motherboard createMotherboard(String manufacturer, String name, String port, String socket){
+        int id = getNextId();
+        return new Motherboard(id, "motherboard", manufacturer, name, port, socket);
     }
 }

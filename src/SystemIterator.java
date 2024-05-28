@@ -5,65 +5,73 @@ public class SystemIterator implements Iterator<SystemBuilder> {
     private List<Motherboard> motherboards;
     private List<CPU> cpus;
     private List<GPU> gpus;
-    private Iterator<Motherboard> motherboardIterator;
-    private Iterator<CPU> cpuIterator;
-    private Iterator<GPU> gpuIterator;
-    private Motherboard currentMotherboard;
-    private CPU currentCPU;
-    private GPU currentGPU;
+    private int motherboardIndex = 0;
+    private int cpuIndex = 0;
+    private int gpuIndex = 0;
 
     public SystemIterator(List<Motherboard> motherboards, List<CPU> cpus, List<GPU> gpus) {
         this.motherboards = motherboards;
         this.cpus = cpus;
         this.gpus = gpus;
-        this.motherboardIterator = motherboards.iterator();
-        this.cpuIterator = cpus.iterator();
-        this.gpuIterator = gpus.iterator();
     }
 
     @Override
     public boolean hasNext() {
-        while (currentMotherboard == null || !cpuIterator.hasNext() || !gpuIterator.hasNext()) {
-            if (!motherboardIterator.hasNext()) {
-                return false; // No more combinations
-            }
-            currentMotherboard = motherboardIterator.next();
-            cpuIterator = cpus.iterator(); // Reset CPU iterator
-            gpuIterator = gpus.iterator(); // Reset GPU iterator
-        }
-        return true;
+        return motherboardIndex < motherboards.size() &&
+                cpuIndex < cpus.size() &&
+                gpuIndex < gpus.size();
     }
 
     @Override
     public SystemBuilder next() {
-        while (currentMotherboard == null || !cpuIterator.hasNext() || !gpuIterator.hasNext()) {
-            if (!motherboardIterator.hasNext()) {
-                return null; // No more combinations
+        Motherboard currentMotherboard = motherboards.get(motherboardIndex);
+        CPU currentCPU = cpus.get(cpuIndex);
+        GPU currentGPU = gpus.get(gpuIndex);
+
+        gpuIndex++;
+        if (gpuIndex >= gpus.size()) {
+            gpuIndex = 0;
+            cpuIndex++;
+            if (cpuIndex >= cpus.size()) {
+                cpuIndex = 0;
+                motherboardIndex++;
+                if (motherboardIndex >= motherboards.size() ) {
+                    return null;
+                }
             }
-            currentMotherboard = motherboardIterator.next();
-            cpuIterator = cpus.iterator(); // Reset CPU iterator
-            gpuIterator = gpus.iterator(); // Reset GPU iterator
         }
-        currentCPU = cpuIterator.next();
-        while (!gpuIterator.hasNext()) {
-            if (!cpuIterator.hasNext()) {
-                return next(); // Try next CPU
-            }
-            currentCPU = cpuIterator.next();
-            gpuIterator = gpus.iterator(); // Reset GPU iterator
-        }
-        currentGPU = gpuIterator.next();
+
+        //if (motherboardIndex >= motherboards.size() || cpuIndex >= cpus.size() || gpuIndex >= gpus.size()) {
+        //    return null;
+        //}
+
         if (isCompatible(currentMotherboard, currentCPU, currentGPU)) {
             return new SystemBuilder()
                     .addMotherboard(currentMotherboard)
                     .addCPU(currentCPU)
                     .addGPU(currentGPU);
         }
-        return next(); // Try next GPU
+
+        return null;
     }
 
     private boolean isCompatible(Motherboard motherboard, CPU cpu, GPU gpu) {
         // Perform compatibility checks here
+        //System.out.println("cpuID: "+ cpu.getId()+ " gpuID: "+ gpu.getId()+ " mbID: " + motherboard.getId());;
+        //if (motherboard.getSocket().equals(cpu.getSocket())){
+        //    System.out.println("sockets are equal");
+        //}
+        //else{
+        //    System.out.println("sockets aren't equal");
+        //}
+
+        //if (motherboard.getPort().equals(gpu.getPort())){
+        //    System.out.println("ports are equal");
+        //}
+        //else{
+        //    System.out.println("ports aren't equal");
+        //}
+
         return motherboard.getSocket().equals(cpu.getSocket()) &&
                 motherboard.getPort().equals(gpu.getPort());
     }

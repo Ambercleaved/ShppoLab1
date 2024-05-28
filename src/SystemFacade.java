@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 
 public class SystemFacade {
@@ -5,11 +6,40 @@ public class SystemFacade {
     private List<CPU> cpus;
     private List<GPU> gpus;
 
+
     public SystemFacade(List<Motherboard> motherboards, List<CPU> cpus, List<GPU> gpus) {
         this.motherboards = motherboards;
         this.cpus = cpus;
         this.gpus = gpus;
     }
+
+
+    public void displayComponents(){
+        ComponentVisitor visitor = new ComponentVisitor();
+
+        System.out.println("Процессоры:");
+        Iterator<CPU> cpuIterator = cpus.iterator();
+        while (cpuIterator.hasNext()) {
+            CPU cpu = cpuIterator.next();
+            cpu.accept(visitor);
+        }
+
+        System.out.println("Видеокарты:");
+        Iterator<GPU> gpuIterator = gpus.iterator();
+        while (gpuIterator.hasNext()) {
+            GPU gpu = gpuIterator.next();
+            gpu.accept(visitor);
+        }
+
+        System.out.println("Материнские платы:");
+        Iterator<Motherboard> motherboardIterator = motherboards.iterator();
+        while (motherboardIterator.hasNext()) {
+            Motherboard motherboard = motherboardIterator.next();
+            motherboard.accept(visitor);
+        }
+    }
+
+
 
     public void buildAndOutputSystems(ComponentVisitor visitor) {
         if (visitor == null) {
@@ -17,11 +47,10 @@ public class SystemFacade {
         }
 
         // Create a SystemIterator to iterate over all combinations of components
-        SystemIterator iterator = new SystemIterator(motherboards, cpus, gpus);
-
+        SystemIterator systemiterator = new SystemIterator(motherboards,cpus,gpus);
         // Iterate over each combination and build systems
-        while (iterator.hasNext()) {
-            SystemBuilder builder = iterator.next();
+        while (systemiterator.hasNext()) {
+            SystemBuilder builder = systemiterator.next();
             if (builder != null) {
                 // Build system
                 PcSystem pcsystem = builder.build();

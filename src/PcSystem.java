@@ -21,6 +21,7 @@ public class PcSystem {
         return gpu;
     }
     public void accept(IVisitor visitor) {
+        System.out.println();
         visitor.visit(cpu);
         visitor.visit(gpu);
         visitor.visit(motherboard);
