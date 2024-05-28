@@ -29,7 +29,7 @@ public class Menu {
 
             try {
                 int choice = scanner.nextInt();
-                scanner.nextLine(); // consume newline
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -62,7 +62,7 @@ public class Menu {
         System.out.println("3. Материнская плата");
         try {
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -95,10 +95,10 @@ public class Menu {
         while (!scanner.hasNextInt()) {
             System.out.println("Неверный ввод. Пожалуйста, введите целое число для количества ядер.");
             System.out.print("Введите количество ядер: ");
-            scanner.next(); // Считываем неверный ввод, чтобы избежать зацикливания
+            scanner.next();
         }
         int amountCores = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
 
         System.out.println("Введите сокет:");
         String socket = scanner.nextLine().trim();
@@ -107,12 +107,12 @@ public class Menu {
         while (!scanner.hasNextDouble()) {
             System.out.println("Неверный ввод. Пожалуйста, введите число для частоты.");
             System.out.print("Введите частоту: ");
-            scanner.next(); // Считываем неверный ввод, чтобы избежать зацикливания
+            scanner.next();
         }
         double clock = scanner.nextDouble();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
 
-        // Создание экземпляра CPU и добавление в список cpus
+
         CPU cpu = Factory.createCPU(manufacturer, name, amountCores, socket, clock);
         cpus.add(cpu);
         System.out.println("Процессор успешно добавлен.");
@@ -127,18 +127,18 @@ public class Menu {
         String name = scanner.nextLine().trim();
 
         System.out.println("Введите порт:");
-        String port = scanner.nextLine();
+        String port = scanner.nextLine().trim();
 
         System.out.println("Введите частоту:");
         while (!scanner.hasNextDouble()) {
             System.out.println("Неверный ввод. Пожалуйста, введите число для частоты.");
             System.out.print("Введите частоту: ");
-            scanner.next(); // Считываем неверный ввод, чтобы избежать зацикливания
+            scanner.next();
         }
         double clock = scanner.nextDouble();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine();
 
-        // Создание экземпляра CPU и добавление в список cpus
+
         GPU gpu = Factory.createGPU(manufacturer, name, port, clock);
         gpus.add(gpu);
         System.out.println("Видеокарта успешно добавлена.");
@@ -154,10 +154,10 @@ public class Menu {
         String name = scanner.nextLine().trim();
 
         System.out.println("Введите порт:");
-        String port = scanner.nextLine();
+        String port = scanner.nextLine().trim();
 
         System.out.println("Введите сокет:");
-        String socket = scanner.nextLine();
+        String socket = scanner.nextLine().trim();
 
         Motherboard mb = Factory.createMotherboard(manufacturer, name, port, socket);
         motherboards.add(mb);

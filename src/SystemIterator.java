@@ -41,9 +41,6 @@ public class SystemIterator implements Iterator<SystemBuilder> {
             }
         }
 
-        //if (motherboardIndex >= motherboards.size() || cpuIndex >= cpus.size() || gpuIndex >= gpus.size()) {
-        //    return null;
-        //}
 
         if (isCompatible(currentMotherboard, currentCPU, currentGPU)) {
             return new SystemBuilder()
@@ -56,23 +53,9 @@ public class SystemIterator implements Iterator<SystemBuilder> {
     }
 
     private boolean isCompatible(Motherboard motherboard, CPU cpu, GPU gpu) {
-        // Perform compatibility checks here
-        //System.out.println("cpuID: "+ cpu.getId()+ " gpuID: "+ gpu.getId()+ " mbID: " + motherboard.getId());;
-        //if (motherboard.getSocket().equals(cpu.getSocket())){
-        //    System.out.println("sockets are equal");
-        //}
-        //else{
-        //    System.out.println("sockets aren't equal");
-        //}
-
-        //if (motherboard.getPort().equals(gpu.getPort())){
-        //    System.out.println("ports are equal");
-        //}
-        //else{
-        //    System.out.println("ports aren't equal");
-        //}
 
         return motherboard.getSocket().equals(cpu.getSocket()) &&
                 motherboard.getPort().equals(gpu.getPort());
+
     }
 }
