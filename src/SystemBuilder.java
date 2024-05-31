@@ -3,22 +3,29 @@ public class SystemBuilder {
     private CPU cpu;
     private GPU gpu;
 
-    public SystemBuilder addMotherboard(Motherboard motherboard) {
+    public SystemBuilder() {
+    }
+
+    public SystemBuilder withMotherboard(Motherboard motherboard) {
         this.motherboard = motherboard;
         return this;
     }
 
-    public SystemBuilder addCPU(CPU cpu) {
+    public SystemBuilder withCPU(CPU cpu) {
         this.cpu = cpu;
         return this;
     }
 
-    public SystemBuilder addGPU(GPU gpu) {
+    public SystemBuilder withGPU(GPU gpu) {
         this.gpu = gpu;
         return this;
     }
 
     public PcSystem build() {
-        return new PcSystem(motherboard, cpu, gpu);
+        PcSystem pcSystem = new PcSystem();
+        if (motherboard != null) pcSystem.addComponent(motherboard);
+        if (cpu != null) pcSystem.addComponent(cpu);
+        if (gpu != null) pcSystem.addComponent(gpu);
+        return pcSystem;
     }
 }

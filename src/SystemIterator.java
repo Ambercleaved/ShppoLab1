@@ -44,9 +44,9 @@ public class SystemIterator implements Iterator<SystemBuilder> {
 
         if (isCompatible(currentMotherboard, currentCPU, currentGPU)) {
             return new SystemBuilder()
-                    .addMotherboard(currentMotherboard)
-                    .addCPU(currentCPU)
-                    .addGPU(currentGPU);
+                    .withMotherboard(currentMotherboard)
+                    .withCPU(currentCPU)
+                    .withGPU(currentGPU);
         }
 
         return null;
