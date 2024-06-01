@@ -46,15 +46,11 @@ public class SystemFacade {
             throw new IllegalArgumentException("ComponentVisitor cannot be null");
         }
 
-        // Create a SystemIterator to iterate over all combinations of components
         SystemIterator systemiterator = new SystemIterator(motherboards, cpus, gpus);
-        // Iterate over each combination and build systems
         while (systemiterator.hasNext()) {
             SystemBuilder builder = systemiterator.next();
             if (builder != null) {
-                // Build system
                 PcSystem pcSystem = builder.build();
-                // Output system details using the ComponentVisitor
                 pcSystem.accept(visitor);
             }
         }
